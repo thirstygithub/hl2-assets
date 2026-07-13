@@ -29,12 +29,12 @@ if (typeof window === 'undefined') {
         if (window.crossOriginIsolated) return;
         if (window.navigator.serviceWorker) {
             window.navigator.serviceWorker.register(window.document.currentScript.src).then((registration) => {
-                registration.addEventListener("updatefound", () => {
-                    window.location.reload();
-                });
                 if (registration.active && !window.navigator.serviceWorker.controller) {
                     window.location.reload();
                 }
+            });
+            window.navigator.serviceWorker.addEventListener("controllerchange", () => {
+                window.location.reload();
             });
         }
     })();
